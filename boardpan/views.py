@@ -116,7 +116,7 @@ def update(request, bid):  # 몇번 게시글을 수정할 건지 번호를 지�
         # 원래 게시판에 있던 원본을 대체한다
         postForm = PostForm(request.POST, instance=post)
 
-        # 값이 유효한지 검증
+        # 값이 유효한지 검증한다
         if postForm.is_valid():
             # post.title = postForm.cleaned_data['title']  # 나쁜 예
             # post.contents = postForm.cleaned_data['contents']  # 나쁜 예
