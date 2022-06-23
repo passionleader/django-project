@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+        <!--시간 같은 경우는 저절로 입력되게 할거라 입력을 따로 받을 필요 없음 -->
+        <form method="post">
+            {% csrf_token %}
+            {{ postForm }}
+            <button>저장</button>
+        </form>
+</body>
+</html>

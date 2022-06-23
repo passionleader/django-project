@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% if request.user.is_authenticated %}
+        {{ request.user }} 님 환영합니다
+    {% endif %}
+    <a href="create"> 글쓰기 </a>
+    <br><br>
+
+    <div style="background-color:yellow">
+        글번호&nbsp;&nbsp;|&nbsp;&nbsp;작성자&nbsp;&nbsp;|&nbsp;&nbsp;제목 <hr>
+    </div> <hr>
+
+    {% for post in posts %}
+    <div>
+        {{post.id}} &nbsp; &nbsp; &nbsp; &nbsp; |{{post.writer}} &nbsp; &nbsp; &nbsp; &nbsp;
+        <a href="read/{{post.id}}"> {{post.title}} </a>
+    </div> <hr>
+    {% endfor %}
+</body>
+</html>

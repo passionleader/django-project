@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% if post %}
+        글번호: {{ post.id }}&nbsp;&nbsp;&nbsp;
+        작성자: {{ post.writer }}&nbsp;&nbsp;&nbsp;
+        제목: {{ post.title }}&nbsp;&nbsp;&nbsp;
+        <a href="../delete/{{post.id}}"> 삭제 </a>&nbsp;&nbsp;&nbsp;
+        <a href="../update/{{post.id}}"> 수정 </a>&nbsp;&nbsp;&nbsp;
+        <a href="../list">      목록 </a>&nbsp;&nbsp;&nbsp;
+        <hr/>
+        {{ post.contents }}
+
+        <form action="/reply/create/{{ post.id }}" method="post">
+            {% csrf_token %}
+            {{ replyForm }}
+            <button> 댓글 입력 </button>
+        </form>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+        <!--시간 같은 경우는 저절로 입력되게 할거라 입력을 따로 받을 필요 없음 -->
+        <form action="createPost" method="post">
+            {% csrf_token %}
+            <!--클래스(fruit)의 앞글자를 딴 이름 fname-->
+            <input type="text" name="fname" />
+            <input type="text" name="fdescript" />
+            <input type="text" name="fprice" />
+            <input type="text" name="fquantity" />
+            <button>저장</button>
+        </form>
+    </body>
+</html>

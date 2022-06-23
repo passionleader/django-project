@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% extends '../mainpage/index.html' %}
+    {% block content %}
+
+    <form method ="post">
+        {% csrf_token %}
+        {{ loginForm }}
+    <button>
+        로그인
+    </button>
+
+    </form>
+{% endblock %}
+</body>
+</html>

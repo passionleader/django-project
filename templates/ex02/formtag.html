@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form action="./getdata" mothod="post">
+        {% csrf_token%}
+        <input type="text" name="userid">
+        <input type="password" name="userpw">
+        <input type="submit" value="로그인">
+        <button>로그이이이이인</button>
+
+
+        <img src="{% static 'google.png' %}" />
+
+    </form>
+</body>
+</html>
