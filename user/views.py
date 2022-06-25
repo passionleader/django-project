@@ -24,7 +24,7 @@ def signup(request):
 
             # 처리 이후 context를 더 줄 필요가 없으니까 게시판으로 redirect 시켜버리자
             # return render(request, 'user/signup.html')
-            return redirect('/boardpan/listGet')
+            return redirect('/boardpan/list')
         else:
             return HttpResponse("잘못된 비밀번호입니다")
 
@@ -48,7 +48,7 @@ def login(request):
 
             # 처리 이후 context를 더 줄 필요가 없으니까 게시판으로 redirect 시켜버리자
             # return render(request, 'user/signup.html')
-            return redirect('/boardpan/listGet')
+            return redirect('/boardpan/list')
 
         # 로그인 실패 시
         else:
@@ -58,6 +58,6 @@ def login(request):
 def logout(request):
     # GET만 필요(로그아웃할래!)
     auth_logout(request)
-    return redirect('/boardpan/listGet')
+    return redirect('/boardpan/list')
 
 

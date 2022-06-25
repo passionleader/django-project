@@ -42,13 +42,11 @@ urlpatterns = [
     path('boardpan/mainPage', boardpan.views.mainPage),
     path('boardpan/create', boardpan.views.create),
     path('boardpan/list', boardpan.views.list),
-    path('boardpan/read', boardpan.views.read),
     path('boardpan/read/<int:bid>', boardpan.views.read),
     path('boardpan/delete/<int:bid>', boardpan.views.delete),
     path('boardpan/update/<int:bid>', boardpan.views.update),
 
     path('reply/create/<int:rid>', reply.views.create),
-    path('reply/list', reply.views.list),
     path('reply/read/<int:rid>', reply.views.read),
     path('reply/delete/<int:rid>', reply.views.delete),
     path('reply/update/<int:rid>', reply.views.update),

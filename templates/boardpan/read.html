@@ -5,21 +5,48 @@
     <title>Title</title>
 </head>
 <body>
+    <h1> 게시판 </h1>
+    <!-- 포스트 형식이라면 -->
     {% if post %}
+        <!-- 게시글 보기 -->
         글번호: {{ post.id }}&nbsp;&nbsp;&nbsp;
         작성자: {{ post.writer }}&nbsp;&nbsp;&nbsp;
         제목: {{ post.title }}&nbsp;&nbsp;&nbsp;
-        <a href="../delete/{{post.id}}"> 삭제 </a>&nbsp;&nbsp;&nbsp;
-        <a href="../update/{{post.id}}"> 수정 </a>&nbsp;&nbsp;&nbsp;
-        <a href="../list">      목록 </a>&nbsp;&nbsp;&nbsp;
-        <hr/>
-        {{ post.contents }}
 
+        <!-- 링크 -->
+        <div align="left">
+            <a href="../delete/{{post.id}}"> 삭제 </a>&nbsp;&nbsp;&nbsp;
+            <a href="../update/{{post.id}}"> 수정 </a>&nbsp;&nbsp;&nbsp;
+            <a href="../list">      목록 </a>&nbsp;&nbsp;&nbsp;
+        </div>
+
+        <!-- 본문 -->
+        <hr/>
+        <h2> 본문 </h2>
+        <br/>
+        {{ post.contents }}
+        <hr/>
+
+        <!-- 만약 post안에 reply_set이 들어있으면 다음을 수행한다 -->
+        <h2> 댓글 보기 </h2>
+        <br>
+        {% if post.reply_set %}
+            {% for reply in post.reply_set.all %}
+                {{ reply.writer }} :
+                {{ reply.contents }}
+                <br>
+            {% endfor %}
+        {% endif %}
+        <br><br>
+
+        <!-- 댓글 달기 -->
         <form action="/reply/create/{{ post.id }}" method="post">
             {% csrf_token %}
             {{ replyForm }}
             <button> 댓글 입력 </button>
         </form>
+        <hr>
+
     {% endif %}
 </body>
 </html>

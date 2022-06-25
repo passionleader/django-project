@@ -9,8 +9,8 @@ from boardpan.forms import PostForm
 from django.http import HttpResponse
 
 
-# 목록보기 페이지 (전체 쿼리)
 from reply.forms import ReplyForm
+
 
 
 def mainPage(request):
@@ -58,8 +58,10 @@ def list(request):
 
 # 게시글 하나를 조회한다(get), 파라미터로 bid값도 같이 줌
 def read(request, bid):
-    # 조회하는 번호의 게시물 페이지를 준다
-    post = Post.objects.get(Q(id=bid))
+    # prefetch_related, reply 라는 모델을 만들어 뒀었지, 얘랑 같이 뽑아볼 것이다
+    # reply는 여러 개(n)이므로 set 을 붙이도록 한다 (규칙)
+    # 기존에는 post
+    post = Post.objects.prefetch_related('reply_set').get(Q(id=bid))
     
     # 댓글 입력 양식을 전달해 줌 (ReplyForm 클래스의 객체 생성)
     replyForm = ReplyForm()
