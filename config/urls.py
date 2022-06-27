@@ -47,7 +47,7 @@ urlpatterns = [
     path('boardpan/update/<int:bid>', boardpan.views.update),
 
     path('reply/create/<int:rid>', reply.views.create),
-    path('reply/read/<int:rid>', reply.views.read),
+    # path('reply/read/<int:rid>', reply.views.read), 는 boardpan/read에 구현이라 불필요
     path('reply/delete/<int:rid>', reply.views.delete),
     path('reply/update/<int:rid>', reply.views.update),
 

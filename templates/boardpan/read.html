@@ -34,6 +34,8 @@
             {% for reply in post.reply_set.all %}
                 {{ reply.writer }} :
                 {{ reply.contents }}
+                <a href="/reply/delete/{{reply.id}}"> 삭제 </a>&nbsp;&nbsp;&nbsp;
+                <a href="/reply/update/{{reply.id}}"> 수정 </a>&nbsp;&nbsp;&nbsp;
                 <br>
             {% endfor %}
         {% endif %}

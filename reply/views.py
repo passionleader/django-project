@@ -35,37 +35,63 @@ def create(request, rid):
 
 
 # 댓글 수정
+@login_required(login_url='/user/login')
 def update(request, rid):
     # rid에 해당하는 댓글을 객체로 담음
     reply = Reply.objects.get(id=rid)
+
+    # 댓글 작성자가 아니면 수정 불가, 원래 게시물페이지로 이동 (테이블 id로 확인함)
+    if request.user.id != reply.writer_id:
+        return redirect('/boardpan/read/' + str(reply.post_id))
+
+    # 원래 적혀있던 양식 전달하기 (get)
     if request.method == "GET":
+
         # 불러온 객체를 양식에 맞게 사용자에게 보여줌
         replyForm = ReplyForm(instance=reply)
-        return render(request, 'reply/create.html', {'replyForm': replyForm})
+
+        # 입력하는 곳에 원래 적은 댓글 들어가있으라
+        context = {'replyForm': replyForm}
+        
+        # 전달
+        return render(request, 'reply/create.html', context)
+    
+    # 원래 서버(DB)에 있던 것을 대체해라!(post)
     elif request.method == "POST":
+
         # 불러온 객체를 대체하고 사용자가 올린 내용으로 DB에 올린다
         replyForm = ReplyForm(request.POST, instance=reply)
+        
+        # 유효하다면 저장함
         if replyForm.is_valid():
             reply = replyForm.save(commit=False)
             reply.save()
-        # 댓글목록으로 이동시킴
-        return redirect('/reply/read/' + str(reply.id))
+            
+        # 원래 있던 게시물로 이동
+        return redirect('/boardpan/read/' + str(reply.post_id))
 
-# 댓글 삭제
+
+# 댓글 삭제, 물론 로그인 필요
+@login_required(login_url='/user/login')
 def delete(request, rid):
+    # rid에 해당하는 댓글을 객체로 담음
     reply = Reply.objects.get(id=rid)
+
+    # 댓글 작성자가 아니면 삭제 불가, 원래 게시물페이지로 이동 (테이블 id로 확인함)
+    if request.user.id != reply.writer_id:
+        return redirect('/boardpan/read/' + str(reply.post_id))
+
+    # 본인이 맞으면 삭제
     reply.delete()
 
-    return redirect('/reply/list')
+    # 삭제가 완료되면 해당 댓글이 있던 게시글로 이동함
+    return redirect('/boardpan/read/' + str(reply.post_id))
+
 
 # 댓글 목록보기
 def list(request):
     replys = Reply.objects.all().order_by('-id')  # 역순 정렬
     return render(request, 'reply/list.html', {'replys':replys})
 
-# 댓글 보기
-# ID 값(URI 넘버 쓸 수 있도록) 같이 전달
-def read(request, rid):
-    reply = Reply.objects.get(id=rid)
-    # 일치하는 댓글과 함께 컨텍스트 리턴함
-    return render(request, 'reply/read.html', {'reply':reply})
+
+# def read(request, rid): 는 boardpan/raed에 구현이라 불필요
